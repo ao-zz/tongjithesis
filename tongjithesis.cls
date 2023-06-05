@@ -40,13 +40,13 @@
 \RequirePackage[top=24mm,bottom=20mm,left=35mm,right=20mm,includefoot]{geometry}
 
 %%% font specification %%%
-\setCJKmainfont[BoldFont=FZHei-B01S, ItalicFont=FZKai-Z03S,Mapping=fullwidth-stop]{FZShuSong-Z01S}
-\setCJKmonofont[Mapping=fullwidth-stop]{FZKai-Z03S}
+\setCJKmainfont[BoldFont=FZHei-B01S, ItalicFont=FZKai-Z03S]{FZShuSong-Z01S}
+\setCJKmonofont{FZKai-Z03S}
 
-\setCJKfamilyfont{kai}[Mapping=fullwidth-stop]{FZKai-Z03S}
-\setCJKfamilyfont{hei}[Mapping=fullwidth-stop]{FZHei-B01S}
-\setCJKfamilyfont{cuhei}[Mapping=fullwidth-stop]{FZDaHei-B02S}
-\setCJKfamilyfont{songhei}[Mapping=fullwidth-stop]{FZSongHei-B07S}
+\setCJKfamilyfont{kai}{FZKai-Z03S}
+\setCJKfamilyfont{hei}{FZHei-B01S}
+\setCJKfamilyfont{cuhei}{FZDaHei-B02S}
+\setCJKfamilyfont{songhei}{FZSongHei-B07S}
 
 \newcommand{\kaiti}{\CJKfamily{kai}}
 \renewcommand{\heiti}{\CJKfamily{hei}}
@@ -144,12 +144,12 @@
 \newtheorem{conjecture}{猜想}[chapter]
 
 %%% bibliographies %%%
-\RequirePackage[backend=biber,style=gb7714-2015,gbpub=false]{biblatex}
+\RequirePackage[backend=biber,style=gb7714-2015,gbpub=false,gbnamefmt=lowercase]{biblatex}
 \renewcommand{\citet}[1]{\textcite{#1}}
 
 %%% glutter %%%
 \RequirePackage{fancybox}
-\fancyput(-0.75cm,-13cm){\parbox{1em}{┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}
+\fancyput(\ifodd\value{page} -0.75cm\else 16.25cm \fi,-13cm){\parbox{1em}{┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}
 
 %%% header and footer %%%
 \RequirePackage{fancyhdr,lastpage}
@@ -183,7 +183,10 @@
 \let\oldmainmatter\mainmatter
 \renewcommand{\mainmatter}[0]{%
 	\oldmainmatter
-	\cfoot{}\rfoot{\zihao{-4}{共~~\pageref{LastPage}~~页~~~第~~\thepage~~页\quad{}}}
+	\cfoot{}
+	%\cfoot{}\rfoot{\zihao{-4}{共\quad \pageref{LastPage}\quad 页\quad 第\quad \thepage \quad 页}}
+	\fancyfoot[RO]{{共\quad \pageref{LastPage}\quad 页\quad 第\quad \thepage \quad 页}}
+	\fancyfoot[LE]{{第\quad \thepage \quad 页\quad 共\quad \pageref{LastPage}\quad 页}}
 	\renewcommand{\footrulewidth}{0.75pt}
 }
 
